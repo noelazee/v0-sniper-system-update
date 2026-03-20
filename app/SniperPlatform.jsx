@@ -415,22 +415,31 @@ export default function SniperPlatform() {
     const contextualPrompt = `[LIVE PRICES: ${priceCtx}]\n[EXCHANGE: ${exchange}]\n[MODE: ${mode}]\n[STRATEGY: ${strategy}]\n\nUser: ${text}`;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: SNIPER_SYSTEM,
           messages: [
             ...newHistory.slice(0, -1),
-            { role: "user", content: contextualPrompt },
+            { role: "user", content: text },
           ],
+          context: {
+            prices: priceCtx,
+            exchange,
+            mode,
+            strategy,
+            session: new Date().getHours() >= 7 && new Date().getHours() < 15 ? "Asia" : new Date().getHours() >= 14 && new Date().getHours() < 22 ? "London" : "New York",
+          },
         }),
       });
 
       const data = await res.json();
-      const reply = data.content?.[0]?.text || "Error: no response.";
+      
+      if (!res.ok) {
+        throw new Error(data.error || "API error");
+      }
+      
+      const reply = data.content || "Error: no response.";
       const isFormatted = reply.includes("MARKET BIAS") || reply.includes("ACTION") || reply.includes("SETUP QUALITY");
 
       const botMsg = {
