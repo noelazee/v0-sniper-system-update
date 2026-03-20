@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import BinanceChart from './BinanceChart'
+import BinanceChart from './components/BinanceChart'
 
 const PAIRS = {
   BTC: { symbol:'BTC/USDT', binance:'BTCUSDT', base:67420, color:'#f7931a', icon:'₿' },
