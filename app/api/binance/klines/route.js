@@ -1,58 +1,26 @@
-'use server';
-
 export async function GET(request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const symbol = searchParams.get('symbol') || 'BTCUSDT';
-    const interval = searchParams.get('interval') || '15m';
-    const limit = searchParams.get('limit') || '100';
+    const { searchParams } = new URL(request.url)
+    const symbol   = searchParams.get('symbol')   || 'BTCUSDT'
+    const interval = searchParams.get('interval') || '15m'
+    const limit    = searchParams.get('limit')    || '100'
 
-    console.log('[v0] Fetching klines for', symbol, interval);
-
-    // Fetch from Binance backend (no CORS issues)
-    const response = await fetch(
+    const res = await fetch(
       `https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`,
       { cache: 'no-store' }
-    );
+    )
 
-    if (!response.ok) {
-      throw new Error(`Binance API error: ${response.status}`);
-    }
+    if (!res.ok) throw new Error('Binance API error')
 
-    const data = await response.json();
-    
-    return Response.json({
-      success: true,
-      symbol,
-      interval,
-      klines: data,
-      timestamp: new Date().toISOString(),
-    }, {
-      headers: {
-        'Cache-Control': 'public, max-age=15',
-        'Access-Control-Allow-Origin': '*',
-      },
-    });
-  } catch (error) {
-    console.error('[v0] Binance proxy error:', error.message);
-    return Response.json({
-      success: false,
-      error: error.message,
-    }, {
-      status: 500,
+    const data = await res.json()
+
+    return Response.json(data, {
       headers: {
         'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store',
       },
-    });
+    })
+  } catch (err) {
+    return Response.json({ error: err.message }, { status: 500 })
   }
-}
-
-export async function OPTIONS() {
-  return new Response(null, {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
 }
