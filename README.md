@@ -1,35 +1,80 @@
-# v0-sniper-system-update
+<img width="1536" height="1024" alt="file_0000000071bc720ba7dbd7c37c0c9368" src="https://github.com/user-attachments/assets/cd59f70e-0c61-4bb3-a5d6-bdd26deb39a7" />
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [v0](https://v0.app).
 
-## Built with v0
+🎯 NOELA — Sniper Trading Platform
+AI-powered sniper trading assistant. Less trades. Better trades.
+BTC · ETH · SOL · BNB — Multi-exchange · Multi-strategy · Live charts
+�
+✨ Features
+🎯 AI Sniper Bot — Claude-powered with strict entry rules (min 3 confluences, R:R 1:3, no FOMO)
+📊 Live Candlestick Chart — Real-time data from Binance WebSocket
+💹 Multi-pair — BTC, ETH, SOL, BNB with live price feed
+🏦 Multi-exchange — Binance, Bybit, OKX
+📈 Multi-strategy — Sniper, Grid Bot, Swing, Scalping, DCA
+🤖 3 Modes — Auto Agent, Semi-Auto, Manual
+🕐 Session Detector — Asia / London / New York (WIB)
+🔒 Secure — API key server-side only, never exposed to client
+🚀 Deploy
+One-click deploy to Vercel
+�
+Add this environment variable in Vercel:
+ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxxxxxx
+Get your key at → https://console.anthropic.com/settings/keys
+💻 Run Locally
+# Clone
+git clone https://github.com/noelazee/v0-sniper-system-update.git
+cd v0-sniper-system-update
 
-This repository is linked to a [v0](https://v0.app) project. You can continue developing by visiting the link below -- start new chats to make changes, and v0 will push commits directly to this repo. Every merge to `main` will automatically deploy.
+# Install
+npm install
 
-[Continue working on v0 →](https://v0.app/chat/projects/prj_GqkSny5XI8boN0aIBI7WE7FYTQkj)
+# Setup env
+cp .env.example .env.local
+# Edit .env.local and add your ANTHROPIC_API_KEY
 
-## Getting Started
-
-First, run the development server:
-
-```bash
+# Run
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [v0 Documentation](https://v0.app/docs) - learn about v0 and how to use it.
-
-<a href="https://v0.app/chat/api/kiro/clone/noelazee/v0-sniper-system-update" alt="Open in Kiro"><img src="https://pdgvvgmkdvyeydso.public.blob.vercel-storage.com/open%20in%20kiro.svg?sanitize=true" /></a>
+Open http://localhost:3000
+📁 Structure
+├── app/
+│   ├── api/
+│   │   ├── chat/route.js           ← AI sniper bot (secure)
+│   │   └── binance/
+│   │       ├── klines/route.js     ← Chart data proxy (fixes CORS)
+│   │       └── ticker/route.js     ← Price feed proxy
+│   ├── LiveChart.jsx               ← Real-time candlestick chart
+│   ├── page.tsx                    ← Main trading UI
+│   └── globals.css
+├── .env.example
+└── package.json
+🎯 Sniper Rules
+Rule
+Value
+Min confluences
+3
+Min R:R
+1:3
+Max leverage (A+)
+×50
+FOMO filter
+OFF
+Averaging down
+OFF
+Sessions (WIB)
+Session
+Time
+Phase
+Asia
+07:00–15:00
+Accumulation
+London
+14:00–22:00
+Manipulation
+New York
+20:30+
+Expansion
+"Asia builds, London traps, New York delivers."
+⚠️ Disclaimer
+For educational purposes only. Always DYOR. Never risk more than you can afford to lose.
+License
+MIT © noela_zee
