@@ -1,6 +1,7 @@
-'use client'
+'use client';
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import BinanceChart from './components/BinanceChart';
 
 const SNIPER_SYSTEM = `You are a sniper-level crypto trading assistant focused on BTCUSDT and major crypto pairs (ETH, SOL, BNB).
 
@@ -754,6 +755,19 @@ export default function SniperPlatform() {
                   {prices[selectedPair].change >= 0 ? "▲" : "▼"} {Math.abs(prices[selectedPair].change).toFixed(2)}%
                 </div>
               </div>
+            </div>
+
+            {/* Live Chart */}
+            <div style={{
+              padding: "16px 20px",
+              borderBottom: "1px solid #1c1c2a",
+              background: "#0c0c14",
+            }}>
+              <BinanceChart
+                symbol={`${selectedPair}USDT`}
+                interval="15m"
+                height={350}
+              />
             </div>
 
             {/* Messages */}
