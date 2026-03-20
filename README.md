@@ -13,40 +13,7 @@ BTC · ETH · SOL · BNB — Multi-exchange · Multi-strategy · Live charts
 📈 Multi-strategy — Sniper, Grid Bot, Swing, Scalping, DCA
 🤖 3 Modes — Auto Agent, Semi-Auto, Manual
 🕐 Session Detector — Asia / London / New York (WIB)
-🔒 Secure — API key server-side only, never exposed to client
-🚀 Deploy
-One-click deploy to Vercel
-�
-Add this environment variable in Vercel:
-ANTHROPIC_API_KEY=sk-ant-xxxxxxxxxxxxxxxxxxxxxxxx
-Get your key at → https://console.anthropic.com/settings/keys
-💻 Run Locally
-# Clone
-git clone https://github.com/noelazee/v0-sniper-system-update.git
-cd v0-sniper-system-update
 
-# Install
-npm install
-
-# Setup env
-cp .env.example .env.local
-# Edit .env.local and add your ANTHROPIC_API_KEY
-
-# Run
-npm run dev
-Open http://localhost:3000
-📁 Structure
-├── app/
-│   ├── api/
-│   │   ├── chat/route.js           ← AI sniper bot (secure)
-│   │   └── binance/
-│   │       ├── klines/route.js     ← Chart data proxy (fixes CORS)
-│   │       └── ticker/route.js     ← Price feed proxy
-│   ├── LiveChart.jsx               ← Real-time candlestick chart
-│   ├── page.tsx                    ← Main trading UI
-│   └── globals.css
-├── .env.example
-└── package.json
 🎯 Sniper Rules
 Rule
 Value
@@ -74,7 +41,10 @@ New York
 20:30+
 Expansion
 "Asia builds, London traps, New York delivers."
+
 ⚠️ Disclaimer
 For educational purposes only. Always DYOR. Never risk more than you can afford to lose.
 License
 MIT © noela_zee
+
+<img width="1536" height="1024" alt="icon" src="https://github.com/user-attachments/assets/ae20f515-c10b-47d2-9bfa-f919b4f666f5" />
