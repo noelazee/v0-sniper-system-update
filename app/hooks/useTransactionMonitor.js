@@ -1,29 +1,35 @@
-// useTransactionMonitor.js
-
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
 const useTransactionMonitor = (transactionHash) => {
-  const [status, setStatus] = useState('pending');
+  const [status, setStatus] = useState('pending')
 
   useEffect(() => {
+    if (!transactionHash) return
+
     const interval = setInterval(async () => {
-      // Replace with actual API call to check transaction status
-      const response = await fetch(`https://api.basechain.com/tx/${transactionHash}`);
-      const data = await response.json();
+      try {
+        const res = await fetch(
+          `https://api.basescan.org/api?module=transaction&action=gettxreceiptstatus&txhash=${transactionHash}&apikey=${process.env.NEXT_PUBLIC_BASESCAN_API_KEY}`
+        )
+        const data = await res.json()
 
-      if (data.status === 'confirmed') {
-        setStatus('confirmed');
-        clearInterval(interval);
-      } else if (data.status === 'reverted') {
-        setStatus('reverted');
-        clearInterval(interval);
+        if (data.result?.status === '1') {
+          setStatus('confirmed')
+          clearInterval(interval)
+        } else if (data.result?.status === '0') {
+          setStatus('reverted')
+          clearInterval(interval)
+        }
+      } catch {
+        setStatus('error')
+        clearInterval(interval)
       }
-    }, 5000); // Check every 5 seconds
+    }, 5000)
 
-    return () => clearInterval(interval);
-  }, [transactionHash]);
+    return () => clearInterval(interval)
+  }, [transactionHash])
 
-  return status;
-};
+  return status
+}
 
-export default useTransactionMonitor;
+export default useTransactionMonitor
