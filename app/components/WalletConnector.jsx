@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 
 const BASE_CHAIN_ID = '0x2105' // 8453
 const USDC_BASE     = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
