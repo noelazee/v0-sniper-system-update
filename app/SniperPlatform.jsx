@@ -185,8 +185,7 @@ function ChatMsg({ m, mode, pair }) {
       )}
     </div>
   )
-}
-
+  }
 function ChatWidget({ prices, pair, mode, strategy, exchange }) {
   const [open,    setOpen]    = useState(false)
   const [input,   setInput]   = useState('')
@@ -303,7 +302,8 @@ function ChatWidget({ prices, pair, mode, strategy, exchange }) {
       )}
     </>
   )
-        }
+}
+
 export default function SniperPlatform() {
   const isMobile = useIsMobile()
   const prices   = usePrices()
@@ -416,6 +416,24 @@ export default function SniperPlatform() {
                     <div style={{ fontSize:9,color:'#4a5568' }}>Auto A+</div>
                   </div>
                 </div>
+                <div style={{ padding:'10px 12px 14px',flexShrink:0 }}>
+                  <div style={{ fontSize:9,color:'#4a5568',letterSpacing:1,marginBottom:8,textTransform:'uppercase' }}>Strategy</div>
+                  <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:6 }}>
+                    {STRATEGIES.map(s=>(
+                      <button key={s} onClick={()=>setStrategy(s)} style={{
+                        fontSize:11,padding:'10px 8px',borderRadius:8,
+                        border:`1px solid ${strategy===s?'#00f5a050':'#1c1c2a'}`,
+                        background:strategy===s?'#00f5a015':'#0c0c14',
+                        color:strategy===s?'#00f5a0':'#6b7280',
+                        cursor:'pointer',textAlign:'left',fontFamily:"'Syne',sans-serif",
+                        display:'flex',alignItems:'center',gap:5
+                      }}>
+                        <span style={{ color:strategy===s?'#00f5a0':'#2d3748',fontSize:9 }}>{strategy===s?'▶':'○'}</span>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <div style={{ flex:1 }}/>
               </div>
             )}
@@ -423,36 +441,47 @@ export default function SniperPlatform() {
             {mobileTab==='roadmap' && (
               <div style={{ flex:1,overflowY:'auto',padding:'14px' }}>
                 <div style={{ marginBottom:14 }}>
-                  <div style={{ fontWeight:800,fontSize:14,color:'#fff',marginBottom:2 }}>NOELA Roadmap</div>
-                  <div style={{ fontSize:9,color:'#4a5568' }}>by @noela_zee · 2025 – 2031</div>
+                  <div style={{ fontWeight:800,fontSize:15,color:'#fff' }}>🗺️ NOELA Roadmap</div>
+                  <div style={{ fontSize:9,color:'#4a5568',marginTop:2 }}>by @noela_zee · 2025 – 2031</div>
                 </div>
-                <div style={{ display:'flex',gap:4,marginBottom:14,overflowX:'auto',paddingBottom:4 }}>
-                  {PHASES.map((p,i)=>(
-                    <div key={i} style={{ flexShrink:0,padding:'4px 10px',borderRadius:20,border:`1px solid ${p.color}50`,background:`${p.color}15`,fontSize:9,color:p.color,fontWeight:700 }}>
-                      {p.icon} {p.label}
-                    </div>
-                  ))}
-                </div>
-                {PHASES.map((p,i)=>(
-                  <div key={i} style={{ marginBottom:14,background:'#0c0c14',border:`1px solid ${p.color}30`,borderRadius:10,padding:'12px',borderLeft:`3px solid ${p.color}` }}>
-                    <div style={{ display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:8 }}>
-                      <div>
-                        <span style={{ fontSize:11,fontWeight:800,color:p.color }}>{p.icon} {p.label} — {p.name}</span>
-                      </div>
-                      <span style={{ fontSize:8,color:'#4a5568',background:'#1c1c2a',padding:'2px 6px',borderRadius:4 }}>{p.period}</span>
-                    </div>
-                    {p.items.map((item,j)=>(
-                      <div key={j} style={{ display:'flex',alignItems:'center',gap:6,padding:'3px 0',borderBottom:'1px solid #1c1c2a' }}>
-                        <span style={{ fontSize:8,color:p.color }}>{'i===0'?'✅':'›'}</span>
-                        <span style={{ fontSize:10,color:i===0?'#e2e8f0':'#6b7280' }}>{item}</span>
-                      </div>
+
+                {/* Timeline bar */}
+                <div style={{ background:'#0c0c14',border:'1px solid #1c1c2a',borderRadius:8,padding:'10px 12px',marginBottom:14 }}>
+                  <div style={{ display:'flex',justifyContent:'space-between',marginBottom:6 }}>
+                    <span style={{ fontSize:8,color:'#4a5568' }}>2025</span>
+                    <span style={{ fontSize:8,color:'#4a5568' }}>2031</span>
+                  </div>
+                  <div style={{ height:6,borderRadius:3,background:'#1c1c2a',overflow:'hidden' }}>
+                    <div style={{ width:'20%',height:'100%',background:'linear-gradient(90deg,#00f5a0,#0072ff)',borderRadius:3 }}/>
+                  </div>
+                  <div style={{ display:'flex',justifyContent:'space-between',marginTop:6 }}>
+                    {['✅ P1','🔜 P2','🚀 P3','🌐 P4','🏆 P5'].map((p,i)=>(
+                      <span key={i} style={{ fontSize:8,color:i===0?'#00f5a0':'#4a5568' }}>{p}</span>
                     ))}
                   </div>
+                </div>
+
+                {/* Phase cards */}
+                {PHASES.map((p,i)=>(
+                  <div key={i} style={{ marginBottom:10,background:'#0c0c14',border:`1px solid ${p.color}30`,borderRadius:10,overflow:'hidden',borderLeft:`3px solid ${p.color}` }}>
+                    <div style={{ padding:'10px 12px',borderBottom:`1px solid ${p.color}20`,display:'flex',justifyContent:'space-between',alignItems:'center' }}>
+                      <span style={{ fontSize:11,fontWeight:800,color:p.color }}>{p.icon} {p.label} — {p.name}</span>
+                      <span style={{ fontSize:8,color:'#4a5568',background:'#1c1c2a',padding:'2px 7px',borderRadius:4 }}>{p.period}</span>
+                    </div>
+                    <div style={{ padding:'8px 12px' }}>
+                      {p.items.map((item,j)=>(
+                        <div key={j} style={{ display:'flex',alignItems:'center',gap:7,padding:'4px 0',borderBottom:'1px solid #1c1c2a' }}>
+                          <span style={{ fontSize:9,color:i===0?'#00f5a0':p.color,flexShrink:0 }}>{i===0?'✅':'›'}</span>
+                          <span style={{ fontSize:10,color:i===0?'#d4dae4':'#6b7280' }}>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 ))}
-                <div style={{ textAlign:'center',padding:'12px 0',borderTop:'1px solid #1c1c2a' }}>
-                  <div style={{ fontSize:9,color:'#4a5568',marginBottom:4 }}>Mission Complete</div>
-                  <div style={{ fontSize:11,color:'#00f5a0',fontWeight:700 }}>2031 🏆</div>
-                  <div style={{ fontSize:8,color:'#2d3748',marginTop:4 }}>"We are not building a bot. We are building a standard."</div>
+
+                <div style={{ textAlign:'center',padding:'14px 0',borderTop:'1px solid #1c1c2a',marginTop:4 }}>
+                  <div style={{ fontSize:11,color:'#00f5a0',fontWeight:800,marginBottom:4 }}>🏆 Mission Complete — 2031</div>
+                  <div style={{ fontSize:9,color:'#4a5568',fontStyle:'italic' }}>"We are not building a bot.<br/>We are building a standard."</div>
                 </div>
               </div>
             )}
@@ -504,7 +533,6 @@ export default function SniperPlatform() {
     )
   }
 
-  
   return (
     <>
       <style>{`
@@ -570,6 +598,7 @@ export default function SniperPlatform() {
             </div>
           </main>
 
+          
           <aside style={{ width:160,borderLeft:'1px solid #1c1c2a',background:'#07070d',display:'flex',flexDirection:'column',flexShrink:0,overflowY:'auto',padding:'10px 8px' }}>
             <div style={{ marginBottom:14 }}>
               <div style={{ fontSize:8,color:'#4a5568',letterSpacing:1,marginBottom:7,textTransform:'uppercase' }}>Session</div>
@@ -630,7 +659,5 @@ export default function SniperPlatform() {
       
       <ChatWidget prices={prices} pair={pair} mode={mode} strategy={strategy} exchange={exchange}/>
     </>
-  )
-}
-
-      
+  ) }
+                                                                                                        }
