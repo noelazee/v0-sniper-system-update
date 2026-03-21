@@ -251,25 +251,25 @@ function ChatWidget({ prices, pair, mode, strategy, exchange }) {
           overflow:'hidden',
         }}>
           
-          <div style={{ padding:'12px 14px', background:'#0d0d1a', borderBottom:'1px solid #1c1c2a', display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
-            <div style={{ width:28,height:28,borderRadius:'50%',background:'linear-gradient(135deg,#00f5a0,#0072ff)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14 }}>🎯</div>
+         <div style={{ padding:'12px 14px', background:'#0d0d1a', borderBottom:'1px solid #1c1c2a', display:'flex', alignItems:'center', gap:8, flexShrink:0 }}>
+         <div style={{ width:28,height:28,borderRadius:'50%',background:'linear-gradient(135deg,#00f5a0,#0072ff)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:14 }}>🎯</div>
             <div>
-              <div style={{ fontWeight:800, fontSize:13, color:'#fff' }}>NOELA Sniper</div>
-              <div style={{ fontSize:9, color:'#00f5a0', display:'flex', alignItems:'center', gap:4 }}>
-                <span style={{ width:5,height:5,borderRadius:'50%',background:'#00f5a0',display:'inline-block',animation:'pulse 2s infinite' }}/>
-                {sess.name} · {mode}
-              </div>
-            </div>
-            <button onClick={()=>setOpen(false)} style={{ marginLeft:'auto',background:'transparent',border:'none',color:'#4a5568',cursor:'pointer',fontSize:16 }}>✕</button>
+           <div style={{ fontWeight:800, fontSize:13, color:'#fff' }}>NOELA Sniper</div>
+           <div style={{ fontSize:9, color:'#00f5a0', display:'flex', alignItems:'center', gap:4 }}>
+           <span style={{ width:5,height:5,borderRadius:'50%',background:'#00f5a0',display:'inline-block',animation:'pulse 2s infinite' }}/>
+          {sess.name} · {mode}
+           </div>
+          </div>
+           <button onClick={()=>setOpen(false)} style={{ marginLeft:'auto',background:'transparent',border:'none',color:'#4a5568',cursor:'pointer',fontSize:16 }}>✕</button>
           </div>
 
           
           <div ref={chatRef} style={{ flex:1, overflowY:'auto', padding:'12px 12px 6px' }}>
             {msgs.map((m,i)=><ChatMsg key={i} m={m} mode={mode} pair={pair}/>)}
             {loading && (
-              <div style={{ display:'flex',alignItems:'center',gap:6 }}>
-                <div style={{ width:22,height:22,borderRadius:'50%',background:'linear-gradient(135deg,#00f5a0,#0072ff)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,flexShrink:0 }}>🎯</div>
-                <div style={{ background:'#12121e',border:'1px solid #1e1e30',borderRadius:'4px 10px 10px 10px' }}><TypingDots/></div>
+             <div style={{ display:'flex',alignItems:'center',gap:6 }}>
+             <div style={{ width:22,height:22,borderRadius:'50%',background:'linear-gradient(135deg,#00f5a0,#0072ff)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,flexShrink:0 }}>🎯</div>
+             <div style={{ background:'#12121e',border:'1px solid #1e1e30',borderRadius:'4px 10px 10px 10px' }}><TypingDots/></div>
               </div>
             )}
           </div>
@@ -408,6 +408,24 @@ export default function SniperPlatform() {
                     <div style={{ fontSize:9,color:'#4a5568' }}>Auto A+</div>
                   </div>
                 </div>
+                <div style={{ padding:'10px 12px 14px',flexShrink:0 }}>
+                  <div style={{ fontSize:9,color:'#4a5568',letterSpacing:1,marginBottom:8,textTransform:'uppercase' }}>Strategy</div>
+                  <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:6 }}>
+                    {STRATEGIES.map(s=>(
+                      <button key={s} onClick={()=>setStrategy(s)} style={{
+                        fontSize:11,padding:'10px 8px',borderRadius:8,
+                        border:`1px solid ${strategy===s?'#00f5a050':'#1c1c2a'}`,
+                        background:strategy===s?'#00f5a015':'#0c0c14',
+                        color:strategy===s?'#00f5a0':'#6b7280',
+                        cursor:'pointer',textAlign:'left',fontFamily:"'Syne',sans-serif",
+                        display:'flex',alignItems:'center',gap:5
+                      }}>
+                        <span style={{ color:strategy===s?'#00f5a0':'#2d3748',fontSize:9 }}>{strategy===s?'▶':'○'}</span>
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </div>
                 <div style={{ flex:1 }}/>
               </div>
             )}
@@ -459,7 +477,6 @@ export default function SniperPlatform() {
     )
   }
 
-  
   return (
     <>
       <style>{`
@@ -567,3 +584,6 @@ export default function SniperPlatform() {
     </>
   )
 }
+
+  
+
