@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-const USDC_ADDRESS   = process.env.USDC_BASE_ADDRESS || '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
-const BANKR_WALLET   = process.env.BANKR_WALLET_ADDRESS || '0x0000000000000000000000000000000000000000'
+const USDC_ADDRESS = process.env.USDC_BASE_ADDRESS || '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+const BANKR_WALLET = process.env.BANKR_WALLET_ADDRESS || '0x0000000000000000000000000000000000000000'
 
 export async function POST(req) {
   try {
@@ -59,8 +59,6 @@ export async function POST(req) {
       deadline,
     })
   } catch (err) {
-    console.error('[Wallet Approve]', err)
     return Response.json({ error: 'Server error' }, { status: 500 })
   }
 }
-
