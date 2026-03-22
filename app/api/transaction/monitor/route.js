@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-const BASE_RPC      = process.env.BASE_RPC_URL || 'https://mainnet.base.org'
-const USDC_ADDRESS  = process.env.USDC_BASE_ADDRESS || '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
+const BASE_RPC     = process.env.BASE_RPC_URL || 'https://mainnet.base.org'
+const USDC_ADDRESS = process.env.USDC_BASE_ADDRESS || '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
 
 async function rpcCall(method, params) {
   const res = await fetch(BASE_RPC, {
@@ -22,9 +22,7 @@ export async function GET(req) {
 
     if (txHash) {
       const receipt = await rpcCall('eth_getTransactionReceipt', [txHash])
-      if (!receipt) {
-        return Response.json({ status: 'pending', txHash })
-      }
+      if (!receipt) return Response.json({ status: 'pending', txHash })
       return Response.json({
         status:      receipt.status === '0x1' ? 'success' : 'failed',
         txHash,
@@ -43,14 +41,11 @@ export async function GET(req) {
         usdcBalance: balance.toFixed(2),
         chain:       'Base',
         chainId:     8453,
-        rpc:         BASE_RPC,
       })
     }
 
     return Response.json({ error: 'Provide ?tx= or ?address= param' }, { status: 400 })
   } catch (err) {
-    console.error('[Monitor]', err)
     return Response.json({ error: err.message }, { status: 500 })
   }
 }
-
