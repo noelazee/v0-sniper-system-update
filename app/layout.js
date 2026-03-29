@@ -1,4 +1,5 @@
 import './globals.css'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata = {
   metadataBase: new URL('https://v0-gbot.vercel.app'),
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body style={{ margin:0, padding:0, background:'#050508', overflowX:'hidden' }}>
         {children}
+        <SpeedInsights />
       </body>
     </html>
   )
