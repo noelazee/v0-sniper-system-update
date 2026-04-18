@@ -1,5 +1,7 @@
+'use client'
 import './globals.css'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Providers } from './providers'
 
 export const metadata = {
   metadataBase: new URL('https://v0-gbot.vercel.app'),
@@ -40,7 +42,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body style={{ margin:0, padding:0, background:'#050508', overflowX:'hidden' }}>
-        {children}
+        <Providers>
+          {children}
+        </Providers>
         <SpeedInsights />
       </body>
     </html>
