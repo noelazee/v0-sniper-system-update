@@ -9,7 +9,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 
 const config = getDefaultConfig({
   appName: 'NOELA Sniper',
-  projectId: 'YOUR_WALLETCONNECT_PROJECT_ID',
+  projectId: '3f355295-7d0a-4ab9-9648-3d65104c7f7f/78e978bf-cc15-4be1-9135-856a2ca02f8c',
   chains: [arbitrum, base, mainnet],
   wallets: [
     {
