@@ -1,8 +1,9 @@
 import OpenAI from 'openai'
 
 const client = new OpenAI({
-  apiKey: process.env.AGENTROUTER_API_KEY,
-  baseURL: 'https://api.agentrouter.org/v1',
+  apiKey: process.env.BLUE_MINDS_API_KEY || 'sk-placeholder',
+  baseURL: 'https://api.bluesminds.com/v1',
+  dangerouslyAllowBrowser: true,
 })
 
 const SYSTEM = `You are a sniper-level crypto trading assistant focused on BTCUSDT and major crypto pairs (ETH, SOL, BNB).
