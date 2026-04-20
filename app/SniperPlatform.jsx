@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import BinanceChart from './components/BinanceChart'
-import AgentManager from './components/AgentManager'
 
 const PAIRS = {
   BTC: { symbol:'BTC/USDT', binance:'BTCUSDT', base:67420, color:'#f7931a', icon:'₿', logo:'https://s2.coinmarketcap.com/static/img/coins/64x64/1.png' },
@@ -784,20 +783,14 @@ export default function SniperPlatform() {
         <div style={{ display:'flex',flex:1,overflow:'hidden' }}>
           <aside style={{ width:190,borderRight:'1px solid #2d2d45',display:'flex',flexDirection:'column',background:'#08080f',flexShrink:0 }}>
             <div style={{ display:'flex',borderBottom:'1px solid #2d2d45',padding:'0 6px' }}>
-              {['pairs','active','agent'].map(t=><button key={t} onClick={()=>setTab(t)} style={{ flex:1,fontSize:9,padding:'9px 4px',border:'none',background:'transparent',cursor:'pointer',textTransform:'uppercase',letterSpacing:1,color:tab===t?'#a78bfa':'#4a5568',borderBottom:`2px solid ${tab===t?'#7c3aed':'transparent'}`,transition:'all 0.2s' }}>{t==='pairs'?'Pairs':t==='active'?'Active':'Agent'}</button>)}
+              {['pairs','active'].map(t=><button key={t} onClick={()=>setTab(t)} style={{ flex:1,fontSize:9,padding:'9px 4px',border:'none',background:'transparent',cursor:'pointer',textTransform:'uppercase',letterSpacing:1,color:tab===t?'#a78bfa':'#4a5568',borderBottom:`2px solid ${tab===t?'#7c3aed':'transparent'}`,transition:'all 0.2s' }}>{t==='pairs'?'Pairs':'Active'}</button>)}
             </div>
             <div style={{ flex:1,overflowY:'auto',padding:'8px 6px' }}>
-              {tab === 'pairs' && Object.keys(PAIRS).map(id=><PairCard key={id} id={id} compact={true}/>)}
-              {tab === 'agent' && <AgentManager />}
-              {tab === 'active' && <div style={{ fontSize:10,color:'#6b7280',padding:'20px 10px',textAlign:'center' }}>No active positions</div>}
+              {Object.keys(PAIRS).map(id=><PairCard key={id} id={id} compact={true}/>)}
             </div>
             <div style={{ padding:'8px 6px',borderTop:'1px solid #2d2d45' }}>
-              {tab === 'pairs' && (
-                <>
-                  <div style={{ fontSize:8,color:'#6b7280',letterSpacing:1,marginBottom:5,textTransform:'uppercase' }}>Strategy</div>
-                  {STRATEGIES.map(s=><button key={s} onClick={()=>setStrategy(s)} style={{ display:'block',width:'100%',textAlign:'left',fontSize:10,padding:'5px 7px',borderRadius:5,border:'none',cursor:'pointer',marginBottom:2,background:strategy===s?'#7c3aed15':'transparent',color:strategy===s?'#a78bfa':'#6b7280',transition:'all 0.2s' }}>{strategy===s?'▶ ':'  '}{s}</button>)}
-                </>
-              )}
+              <div style={{ fontSize:8,color:'#6b7280',letterSpacing:1,marginBottom:5,textTransform:'uppercase' }}>Strategy</div>
+              {STRATEGIES.map(s=><button key={s} onClick={()=>setStrategy(s)} style={{ display:'block',width:'100%',textAlign:'left',fontSize:10,padding:'5px 7px',borderRadius:5,border:'none',cursor:'pointer',marginBottom:2,background:strategy===s?'#7c3aed15':'transparent',color:strategy===s?'#a78bfa':'#6b7280',transition:'all 0.2s' }}>{strategy===s?'▶ ':'  '}{s}</button>)}
             </div>
    </aside>
 
