@@ -3,8 +3,9 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 import { useState } from 'react'
+import Link from 'next/link'
 
-export default function Navbar() {
+export default function Navbar({ onTradingClick, showTrading = false }) {
   const { address, isConnected } = useAccount()
   const [showMenu, setShowMenu] = useState(false)
 
@@ -69,6 +70,26 @@ export default function Navbar() {
         </div>
 
         <div style={menuStyle}>
+          {isConnected && (
+            <button 
+              onClick={onTradingClick}
+              style={{
+                padding: '8px 14px',
+                borderRadius: 8,
+                border: '1px solid #7c3aed30',
+                background: showTrading ? 'linear-gradient(135deg, #7c3aed30, #7c3aed15)' : 'linear-gradient(135deg, #7c3aed15, #0072ff10)',
+                color: showTrading ? '#a78bfa' : '#7c3aed',
+                fontFamily: "'Space Mono', monospace",
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: 'pointer',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {showTrading ? '⚙️ Dashboard' : '📊 Trading'}
+            </button>
+          )}
+
           {isConnected && address && (
             <div style={{
               display: 'flex',
