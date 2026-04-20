@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Navbar from './components/Navbar'
+import TradingDashboard from './components/TradingDashboard'
 
 const SOCIALS = [
   { icon: '𝕏', label: 'X / Twitter', url: 'https://x.com/xnoelasn', color: '#fff' },
@@ -56,6 +57,7 @@ function FloatingParticle({ style }) {
 export default function HomePage() {
   const router = useRouter()
   const [mounted, setMounted] = useState(false)
+  const [showTrading, setShowTrading] = useState(false)
   const [hoveredFeature, setHoveredFeature] = useState(null)
   const [scrollY, setScrollY] = useState(0)
   const heroRef = useRef(null)
@@ -69,6 +71,15 @@ export default function HomePage() {
 
   if (!mounted) return null
 
+  if (showTrading) {
+    return (
+      <div style={{ background: '#050508', minHeight: '100vh' }}>
+        <Navbar onTradingClick={() => setShowTrading(false)} showTrading={true} />
+        <TradingDashboard />
+      </div>
+    )
+  }
+
   return (
     <div style={{
       minHeight: '100vh',
@@ -77,7 +88,7 @@ export default function HomePage() {
       color: '#e2e8f0',
       overflowX: 'hidden',
     }}>
-      <Navbar />
+      <Navbar onTradingClick={() => setShowTrading(true)} showTrading={false} />
       
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&display=swap');
